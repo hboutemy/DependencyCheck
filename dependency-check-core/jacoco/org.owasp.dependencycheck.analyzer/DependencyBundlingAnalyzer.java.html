@@ -507,15 +507,15 @@ import org.slf4j.LoggerFactory;
      * false
      */
     public static boolean npmVersionsMatch(String current, String next) {
-<span class="nc" id="L510">        String left = current;</span>
-<span class="nc" id="L511">        String right = next;</span>
-<span class="nc bnc" id="L512" title="All 4 branches missed.">        if (left == null || right == null) {</span>
+<span class="fc" id="L510">        String left = current;</span>
+<span class="fc" id="L511">        String right = next;</span>
+<span class="pc bpc" id="L512" title="2 of 4 branches missed.">        if (left == null || right == null) {</span>
 <span class="nc" id="L513">            return false;</span>
         }
-<span class="nc bnc" id="L515" title="All 6 branches missed.">        if (left.equals(right) || &quot;*&quot;.equals(left) || &quot;*&quot;.equals(right)) {</span>
-<span class="nc" id="L516">            return true;</span>
+<span class="pc bpc" id="L515" title="2 of 6 branches missed.">        if (left.equals(right) || &quot;*&quot;.equals(left) || &quot;*&quot;.equals(right)) {</span>
+<span class="fc" id="L516">            return true;</span>
         }
-<span class="nc bnc" id="L518" title="All 2 branches missed.">        if (left.contains(&quot; &quot;)) { // we have a version string from package.json</span>
+<span class="pc bpc" id="L518" title="1 of 2 branches missed.">        if (left.contains(&quot; &quot;)) { // we have a version string from package.json</span>
 <span class="nc bnc" id="L519" title="All 2 branches missed.">            if (right.contains(&quot; &quot;)) { // we can't evaluate this &quot;&gt;=1.5.4 &lt;2.0.0&quot; vs &quot;2 || 3&quot;</span>
 <span class="nc" id="L520">                return false;</span>
             }
@@ -532,23 +532,23 @@ import org.slf4j.LoggerFactory;
 <span class="nc" id="L532">                LOGGER.trace(&quot;ignore&quot;, ex);</span>
 <span class="nc" id="L533">            }</span>
         } else {
-<span class="nc bnc" id="L535" title="All 2 branches missed.">            if (!left.matches(&quot;^\\d.*$&quot;)) {</span>
+<span class="pc bpc" id="L535" title="1 of 2 branches missed.">            if (!left.matches(&quot;^\\d.*$&quot;)) {</span>
 <span class="nc" id="L536">                left = stripLeadingNonNumeric(left);</span>
 <span class="nc bnc" id="L537" title="All 4 branches missed.">                if (left == null || left.isEmpty()) {</span>
 <span class="nc" id="L538">                    return false;</span>
                 }
             }
             try {
-<span class="nc" id="L542">                Semver v = new Semver(left, SemverType.NPM);</span>
-<span class="nc bnc" id="L543" title="All 4 branches missed.">                if (!right.isEmpty() &amp;&amp; v.satisfies(right)) {</span>
+<span class="fc" id="L542">                Semver v = new Semver(left, SemverType.NPM);</span>
+<span class="pc bpc" id="L543" title="2 of 4 branches missed.">                if (!right.isEmpty() &amp;&amp; v.satisfies(right)) {</span>
 <span class="nc" id="L544">                    return true;</span>
                 }
-<span class="nc bnc" id="L546" title="All 2 branches missed.">                if (!right.contains(&quot; &quot;)) {</span>
-<span class="nc" id="L547">                    left = current;</span>
-<span class="nc" id="L548">                    right = stripLeadingNonNumeric(right);</span>
-<span class="nc bnc" id="L549" title="All 2 branches missed.">                    if (right != null) {</span>
-<span class="nc" id="L550">                        v = new Semver(right, SemverType.NPM);</span>
-<span class="nc" id="L551">                        return v.satisfies(left);</span>
+<span class="pc bpc" id="L546" title="1 of 2 branches missed.">                if (!right.contains(&quot; &quot;)) {</span>
+<span class="fc" id="L547">                    left = current;</span>
+<span class="fc" id="L548">                    right = stripLeadingNonNumeric(right);</span>
+<span class="pc bpc" id="L549" title="1 of 2 branches missed.">                    if (right != null) {</span>
+<span class="fc" id="L550">                        v = new Semver(right, SemverType.NPM);</span>
+<span class="fc" id="L551">                        return v.satisfies(left);</span>
                     }
                 }
 <span class="nc" id="L554">            } catch (SemverException ex) {</span>
@@ -569,9 +569,9 @@ import org.slf4j.LoggerFactory;
      * @return the string without leading non-numeric characters
      */
     private static String stripLeadingNonNumeric(String str) {
-<span class="nc bnc" id="L572" title="All 2 branches missed.">        for (int x = 0; x &lt; str.length(); x++) {</span>
-<span class="nc bnc" id="L573" title="All 2 branches missed.">            if (Character.isDigit(str.codePointAt(x))) {</span>
-<span class="nc" id="L574">                return str.substring(x);</span>
+<span class="pc bpc" id="L572" title="1 of 2 branches missed.">        for (int x = 0; x &lt; str.length(); x++) {</span>
+<span class="pc bpc" id="L573" title="1 of 2 branches missed.">            if (Character.isDigit(str.codePointAt(x))) {</span>
+<span class="fc" id="L574">                return str.substring(x);</span>
             }
         }
 <span class="nc" id="L577">        return null;</span>

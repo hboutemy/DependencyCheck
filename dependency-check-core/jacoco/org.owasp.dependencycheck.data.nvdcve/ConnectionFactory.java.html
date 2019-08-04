@@ -112,38 +112,38 @@ public final class ConnectionFactory {
 <span class="fc bfc" id="L112" title="All 2 branches covered.">        if (connectionString != null) {</span>
 <span class="fc" id="L113">            return;</span>
         }
-<span class="fc" id="L115">        Connection conn = null;</span>
+<span class="fc" id="L115">        final boolean autoUpdate = settings.getBoolean(Settings.KEYS.AUTO_UPDATE, true);</span>
+<span class="fc" id="L116">        Connection conn = null;</span>
         try {
             //load the driver if necessary
-<span class="fc" id="L118">            final String driverName = settings.getString(Settings.KEYS.DB_DRIVER_NAME, &quot;&quot;);</span>
-<span class="fc" id="L119">            final String driverPath = settings.getString(Settings.KEYS.DB_DRIVER_PATH, &quot;&quot;);</span>
-<span class="fc" id="L120">            LOGGER.debug(&quot;Loading driver '{}'&quot;, driverName);</span>
+<span class="fc" id="L119">            final String driverName = settings.getString(Settings.KEYS.DB_DRIVER_NAME, &quot;&quot;);</span>
+<span class="fc" id="L120">            final String driverPath = settings.getString(Settings.KEYS.DB_DRIVER_PATH, &quot;&quot;);</span>
+<span class="fc" id="L121">            LOGGER.debug(&quot;Loading driver '{}'&quot;, driverName);</span>
             try {
-<span class="pc bpc" id="L122" title="1 of 2 branches missed.">                if (!driverPath.isEmpty()) {</span>
-<span class="nc" id="L123">                    LOGGER.debug(&quot;Loading driver from: {}&quot;, driverPath);</span>
-<span class="nc" id="L124">                    driver = DriverLoader.load(driverName, driverPath);</span>
+<span class="pc bpc" id="L123" title="1 of 2 branches missed.">                if (!driverPath.isEmpty()) {</span>
+<span class="nc" id="L124">                    LOGGER.debug(&quot;Loading driver from: {}&quot;, driverPath);</span>
+<span class="nc" id="L125">                    driver = DriverLoader.load(driverName, driverPath);</span>
                 } else {
-<span class="fc" id="L126">                    driver = DriverLoader.load(driverName);</span>
+<span class="fc" id="L127">                    driver = DriverLoader.load(driverName);</span>
                 }
-<span class="nc" id="L128">            } catch (DriverLoadException ex) {</span>
-<span class="nc" id="L129">                LOGGER.debug(&quot;Unable to load database driver&quot;, ex);</span>
-<span class="nc" id="L130">                throw new DatabaseException(&quot;Unable to load database driver&quot;, ex);</span>
-<span class="fc" id="L131">            }</span>
-<span class="fc" id="L132">            userName = settings.getString(Settings.KEYS.DB_USER, &quot;dcuser&quot;);</span>
+<span class="nc" id="L129">            } catch (DriverLoadException ex) {</span>
+<span class="nc" id="L130">                LOGGER.debug(&quot;Unable to load database driver&quot;, ex);</span>
+<span class="nc" id="L131">                throw new DatabaseException(&quot;Unable to load database driver&quot;, ex);</span>
+<span class="fc" id="L132">            }</span>
+<span class="fc" id="L133">            userName = settings.getString(Settings.KEYS.DB_USER, &quot;dcuser&quot;);</span>
             //yes, yes - hard-coded password - only if there isn't one in the properties file.
-<span class="fc" id="L134">            password = settings.getString(Settings.KEYS.DB_PASSWORD, &quot;DC-Pass1337!&quot;);</span>
+<span class="fc" id="L135">            password = settings.getString(Settings.KEYS.DB_PASSWORD, &quot;DC-Pass1337!&quot;);</span>
             try {
-<span class="fc" id="L136">                connectionString = settings.getConnectionString(</span>
+<span class="fc" id="L137">                connectionString = settings.getConnectionString(</span>
                         Settings.KEYS.DB_CONNECTION_STRING,
                         Settings.KEYS.DB_FILE_NAME);
-<span class="nc" id="L139">            } catch (IOException ex) {</span>
-<span class="nc" id="L140">                LOGGER.debug(&quot;Unable to retrieve the database connection string&quot;, ex);</span>
-<span class="nc" id="L141">                throw new DatabaseException(&quot;Unable to retrieve the database connection string&quot;, ex);</span>
-<span class="fc" id="L142">            }</span>
-
+<span class="nc" id="L140">            } catch (IOException ex) {</span>
+<span class="nc" id="L141">                LOGGER.debug(&quot;Unable to retrieve the database connection string&quot;, ex);</span>
+<span class="nc" id="L142">                throw new DatabaseException(&quot;Unable to retrieve the database connection string&quot;, ex);</span>
+<span class="fc" id="L143">            }</span>
 <span class="fc" id="L144">            boolean shouldCreateSchema = false;</span>
             try {
-<span class="pc bpc" id="L146" title="1 of 2 branches missed.">                if (connectionString.startsWith(&quot;jdbc:h2:file:&quot;)) { //H2</span>
+<span class="pc bpc" id="L146" title="1 of 4 branches missed.">                if (autoUpdate &amp;&amp; connectionString.startsWith(&quot;jdbc:h2:file:&quot;)) { //H2</span>
 <span class="fc bfc" id="L147" title="All 2 branches covered.">                    shouldCreateSchema = !h2DataFileExists();</span>
 <span class="fc" id="L148">                    LOGGER.debug(&quot;Need to create DB Structure: {}&quot;, shouldCreateSchema);</span>
                 }
@@ -421,21 +421,26 @@ public final class ConnectionFactory {
 <span class="fc" id="L421">                LOGGER.debug(&quot;DC Schema: {}&quot;, appDbVersion.toString());</span>
 <span class="fc" id="L422">                LOGGER.debug(&quot;DB Schema: {}&quot;, db.toString());</span>
 <span class="fc bfc" id="L423" title="All 2 branches covered.">                if (appDbVersion.compareTo(db) &gt; 0) {</span>
-<span class="fc" id="L424">                    updateSchema(conn, appDbVersion, db);</span>
-<span class="pc bpc" id="L425" title="1 of 2 branches missed.">                    if (++callDepth &lt; 10) {</span>
-<span class="fc" id="L426">                        ensureSchemaVersion(conn);</span>
+<span class="fc" id="L424">                    final boolean autoUpdate = settings.getBoolean(Settings.KEYS.AUTO_UPDATE, true);</span>
+<span class="pc bpc" id="L425" title="1 of 2 branches missed.">                    if (autoUpdate) {</span>
+<span class="fc" id="L426">                        updateSchema(conn, appDbVersion, db);</span>
+<span class="pc bpc" id="L427" title="1 of 2 branches missed.">                        if (++callDepth &lt; 10) {</span>
+<span class="fc" id="L428">                            ensureSchemaVersion(conn);</span>
+                        }
+                    } else {
+<span class="nc" id="L431">                        throw new DatabaseException(&quot;Old database schema identified - please execute dependency-check without the no-update configuration to continue&quot;);</span>
                     }
                 }
-<span class="fc" id="L429">            } else {</span>
-<span class="nc" id="L430">                throw new DatabaseException(&quot;Database schema is missing&quot;);</span>
+<span class="fc" id="L434">            } else {</span>
+<span class="nc" id="L435">                throw new DatabaseException(&quot;Database schema is missing&quot;);</span>
             }
-<span class="nc" id="L432">        } catch (SQLException ex) {</span>
-<span class="nc" id="L433">            LOGGER.debug(&quot;&quot;, ex);</span>
-<span class="nc" id="L434">            throw new DatabaseException(&quot;Unable to check the database schema version&quot;, ex);</span>
+<span class="nc" id="L437">        } catch (SQLException ex) {</span>
+<span class="nc" id="L438">            LOGGER.debug(&quot;&quot;, ex);</span>
+<span class="nc" id="L439">            throw new DatabaseException(&quot;Unable to check the database schema version&quot;, ex);</span>
         } finally {
-<span class="fc" id="L436">            DBUtils.closeResultSet(rs);</span>
-<span class="fc" id="L437">            DBUtils.closeStatement(ps);</span>
+<span class="fc" id="L441">            DBUtils.closeResultSet(rs);</span>
+<span class="fc" id="L442">            DBUtils.closeStatement(ps);</span>
         }
-<span class="fc" id="L439">    }</span>
+<span class="fc" id="L444">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

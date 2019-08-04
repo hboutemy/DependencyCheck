@@ -209,7 +209,7 @@ public final class URLConnectionFactory {
      * @param conn the connection
      */
     private void configureTLS(URL url, URLConnection conn) {
-<span class="pc bpc" id="L212" title="1 of 2 branches missed.">        if (&quot;https&quot;.equals(url.getProtocol())) {</span>
+<span class="fc bfc" id="L212" title="All 2 branches covered.">        if (&quot;https&quot;.equals(url.getProtocol())) {</span>
             try {
 <span class="fc" id="L214">                final HttpsURLConnection secCon = (HttpsURLConnection) conn;</span>
 <span class="fc" id="L215">                final SSLSocketFactoryEx factory = new SSLSocketFactoryEx(settings);</span>

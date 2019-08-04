@@ -157,7 +157,7 @@ import org.xml.sax.helpers.DefaultHandler;
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
 <span class="pc bpc" id="L159" title="1 of 2 branches missed.">        if (null != qName) {</span>
-<span class="pc bpc" id="L160" title="2 of 12 branches missed.">            switch (qName) {</span>
+<span class="pc bpc" id="L160" title="1 of 12 branches missed.">            switch (qName) {</span>
                 case SUPPRESS:
 <span class="fc bfc" id="L162" title="All 4 branches covered.">                    if (rule.getUntil() != null &amp;&amp; rule.getUntil().before(Calendar.getInstance())) {</span>
 <span class="fc" id="L163">                        LOGGER.info(&quot;Suppression is expired for rule: {}&quot;, rule);</span>
@@ -188,8 +188,8 @@ import org.xml.sax.helpers.DefaultHandler;
 <span class="fc" id="L188">                    rule.addCve(currentText.toString().trim());</span>
 <span class="fc" id="L189">                    break;</span>
                 case VULNERABILITY_NAME:
-<span class="nc" id="L191">                    rule.addVulnerabilityName(processPropertyType());</span>
-<span class="nc" id="L192">                    break;</span>
+<span class="fc" id="L191">                    rule.addVulnerabilityName(processPropertyType());</span>
+<span class="fc" id="L192">                    break;</span>
                 case NOTES:
 <span class="fc" id="L194">                    rule.addNotes(currentText.toString().trim());</span>
 <span class="fc" id="L195">                    break;</span>

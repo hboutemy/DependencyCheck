@@ -104,10 +104,10 @@ import org.owasp.dependencycheck.utils.Checksum;
         try {
             // Do not scan the node_modules (or bower_components) directory
 <span class="fc" id="L106">            final String canonicalPath = pathname.getCanonicalPath();</span>
-<span class="pc bpc" id="L107" title="1 of 2 branches missed.">            if (canonicalPath.contains(File.separator + &quot;node_modules&quot; + File.separator)</span>
+<span class="fc bfc" id="L107" title="All 2 branches covered.">            if (canonicalPath.contains(File.separator + &quot;node_modules&quot; + File.separator)</span>
 <span class="pc bpc" id="L108" title="1 of 2 branches missed.">                    || canonicalPath.contains(File.separator + &quot;bower_components&quot; + File.separator)) {</span>
-<span class="nc" id="L109">                LOGGER.debug(&quot;Skipping analysis of node/bower module: {}&quot;, canonicalPath);</span>
-<span class="nc" id="L110">                return false;</span>
+<span class="fc" id="L109">                LOGGER.debug(&quot;Skipping analysis of node/bower module: {}&quot;, canonicalPath);</span>
+<span class="fc" id="L110">                return false;</span>
             }
 <span class="nc" id="L112">        } catch (IOException ex) {</span>
 <span class="nc" id="L113">            throw new AnalysisException(&quot;Unable to process dependency&quot;, ex);</span>
@@ -125,38 +125,38 @@ import org.owasp.dependencycheck.utils.Checksum;
      * @return the generated dependency
      */
     protected Dependency createDependency(Dependency dependency, String name, String version, String scope) {
-<span class="nc" id="L128">        final Dependency nodeModule = new Dependency(new File(dependency.getActualFile() + &quot;?&quot; + name), true);</span>
-<span class="nc" id="L129">        nodeModule.setEcosystem(NPM_DEPENDENCY_ECOSYSTEM);</span>
+<span class="fc" id="L128">        final Dependency nodeModule = new Dependency(new File(dependency.getActualFile() + &quot;?&quot; + name), true);</span>
+<span class="fc" id="L129">        nodeModule.setEcosystem(NPM_DEPENDENCY_ECOSYSTEM);</span>
         //this is virtual - the sha1 is purely for the hyperlink in the final html report
-<span class="nc" id="L131">        nodeModule.setSha1sum(Checksum.getSHA1Checksum(String.format(&quot;%s:%s&quot;, name, version)));</span>
-<span class="nc" id="L132">        nodeModule.setSha256sum(Checksum.getSHA256Checksum(String.format(&quot;%s:%s&quot;, name, version)));</span>
-<span class="nc" id="L133">        nodeModule.setMd5sum(Checksum.getMD5Checksum(String.format(&quot;%s:%s&quot;, name, version)));</span>
-<span class="nc" id="L134">        nodeModule.addEvidence(EvidenceType.PRODUCT, &quot;package.json&quot;, &quot;name&quot;, name, Confidence.HIGHEST);</span>
-<span class="nc" id="L135">        nodeModule.addEvidence(EvidenceType.VENDOR, &quot;package.json&quot;, &quot;name&quot;, name, Confidence.HIGH);</span>
-<span class="nc bnc" id="L136" title="All 2 branches missed.">        if (!StringUtils.isBlank(version)) {</span>
-<span class="nc" id="L137">            nodeModule.addEvidence(EvidenceType.VERSION, &quot;package.json&quot;, &quot;version&quot;, version, Confidence.HIGHEST);</span>
-<span class="nc" id="L138">            nodeModule.setVersion(version);</span>
+<span class="fc" id="L131">        nodeModule.setSha1sum(Checksum.getSHA1Checksum(String.format(&quot;%s:%s&quot;, name, version)));</span>
+<span class="fc" id="L132">        nodeModule.setSha256sum(Checksum.getSHA256Checksum(String.format(&quot;%s:%s&quot;, name, version)));</span>
+<span class="fc" id="L133">        nodeModule.setMd5sum(Checksum.getMD5Checksum(String.format(&quot;%s:%s&quot;, name, version)));</span>
+<span class="fc" id="L134">        nodeModule.addEvidence(EvidenceType.PRODUCT, &quot;package.json&quot;, &quot;name&quot;, name, Confidence.HIGHEST);</span>
+<span class="fc" id="L135">        nodeModule.addEvidence(EvidenceType.VENDOR, &quot;package.json&quot;, &quot;name&quot;, name, Confidence.HIGH);</span>
+<span class="fc bfc" id="L136" title="All 2 branches covered.">        if (!StringUtils.isBlank(version)) {</span>
+<span class="fc" id="L137">            nodeModule.addEvidence(EvidenceType.VERSION, &quot;package.json&quot;, &quot;version&quot;, version, Confidence.HIGHEST);</span>
+<span class="fc" id="L138">            nodeModule.setVersion(version);</span>
         }
-<span class="nc bnc" id="L140" title="All 2 branches missed.">        if (dependency.getName() != null) {</span>
-<span class="nc" id="L141">            nodeModule.addProjectReference(dependency.getName() + &quot;: &quot; + scope);</span>
+<span class="pc bpc" id="L140" title="1 of 2 branches missed.">        if (dependency.getName() != null) {</span>
+<span class="fc" id="L141">            nodeModule.addProjectReference(dependency.getName() + &quot;: &quot; + scope);</span>
         } else {
 <span class="nc" id="L143">            nodeModule.addProjectReference(dependency.getDisplayFileName() + &quot;: &quot; + scope);</span>
         }
-<span class="nc" id="L145">        nodeModule.setName(name);</span>
+<span class="fc" id="L145">        nodeModule.setName(name);</span>
 
         //TODO  - we can likely create a valid CPE as a low confidence guess using cpe:2.3:a:[name]_project:[name]:[version]
         //(and add a targetSw of npm/node)
         Identifier id;
         try {
-<span class="nc" id="L151">            final PackageURL purl = PackageURLBuilder.aPackageURL().withType(StandardTypes.NPM)</span>
-<span class="nc" id="L152">                    .withName(name).withVersion(version).build();</span>
-<span class="nc" id="L153">            id = new PurlIdentifier(purl, Confidence.HIGHEST);</span>
+<span class="fc" id="L151">            final PackageURL purl = PackageURLBuilder.aPackageURL().withType(StandardTypes.NPM)</span>
+<span class="fc" id="L152">                    .withName(name).withVersion(version).build();</span>
+<span class="fc" id="L153">            id = new PurlIdentifier(purl, Confidence.HIGHEST);</span>
 <span class="nc" id="L154">        } catch (MalformedPackageURLException ex) {</span>
 <span class="nc" id="L155">            LOGGER.debug(&quot;Unable to generate Purl - using a generic identifier instead &quot; + ex.getMessage());</span>
 <span class="nc" id="L156">            id = new GenericIdentifier(String.format(&quot;npm:%s@%s&quot;, dependency.getName(), version), Confidence.HIGHEST);</span>
-<span class="nc" id="L157">        }</span>
-<span class="nc" id="L158">        nodeModule.addSoftwareIdentifier(id);</span>
-<span class="nc" id="L159">        return nodeModule;</span>
+<span class="fc" id="L157">        }</span>
+<span class="fc" id="L158">        nodeModule.addSoftwareIdentifier(id);</span>
+<span class="fc" id="L159">        return nodeModule;</span>
     }
 
     /**
@@ -213,32 +213,32 @@ import org.owasp.dependencycheck.utils.Checksum;
      * @param key the key to obtain the data from the json information
      */
     private static String addToEvidence(Dependency dep, EvidenceType t, JsonObject json, String key) {
-<span class="nc" id="L216">        String evidenceStr = null;</span>
-<span class="nc bnc" id="L217" title="All 2 branches missed.">        if (json.containsKey(key)) {</span>
-<span class="nc" id="L218">            final JsonValue value = json.get(key);</span>
-<span class="nc bnc" id="L219" title="All 2 branches missed.">            if (value instanceof JsonString) {</span>
-<span class="nc" id="L220">                evidenceStr = ((JsonString) value).getString();</span>
-<span class="nc" id="L221">                dep.addEvidence(t, PACKAGE_JSON, key, evidenceStr, Confidence.HIGHEST);</span>
-<span class="nc bnc" id="L222" title="All 2 branches missed.">            } else if (value instanceof JsonObject) {</span>
-<span class="nc" id="L223">                final JsonObject jsonObject = (JsonObject) value;</span>
-<span class="nc bnc" id="L224" title="All 2 branches missed.">                for (final Map.Entry&lt;String, JsonValue&gt; entry : jsonObject.entrySet()) {</span>
-<span class="nc" id="L225">                    final String property = entry.getKey();</span>
-<span class="nc" id="L226">                    final JsonValue subValue = entry.getValue();</span>
-<span class="nc bnc" id="L227" title="All 2 branches missed.">                    if (subValue instanceof JsonString) {</span>
-<span class="nc" id="L228">                        evidenceStr = ((JsonString) subValue).getString();</span>
-<span class="nc" id="L229">                        dep.addEvidence(t, PACKAGE_JSON,</span>
-<span class="nc" id="L230">                                String.format(&quot;%s.%s&quot;, key, property),</span>
+<span class="fc" id="L216">        String evidenceStr = null;</span>
+<span class="fc bfc" id="L217" title="All 2 branches covered.">        if (json.containsKey(key)) {</span>
+<span class="fc" id="L218">            final JsonValue value = json.get(key);</span>
+<span class="fc bfc" id="L219" title="All 2 branches covered.">            if (value instanceof JsonString) {</span>
+<span class="fc" id="L220">                evidenceStr = ((JsonString) value).getString();</span>
+<span class="fc" id="L221">                dep.addEvidence(t, PACKAGE_JSON, key, evidenceStr, Confidence.HIGHEST);</span>
+<span class="pc bpc" id="L222" title="1 of 2 branches missed.">            } else if (value instanceof JsonObject) {</span>
+<span class="fc" id="L223">                final JsonObject jsonObject = (JsonObject) value;</span>
+<span class="fc bfc" id="L224" title="All 2 branches covered.">                for (final Map.Entry&lt;String, JsonValue&gt; entry : jsonObject.entrySet()) {</span>
+<span class="fc" id="L225">                    final String property = entry.getKey();</span>
+<span class="fc" id="L226">                    final JsonValue subValue = entry.getValue();</span>
+<span class="pc bpc" id="L227" title="1 of 2 branches missed.">                    if (subValue instanceof JsonString) {</span>
+<span class="fc" id="L228">                        evidenceStr = ((JsonString) subValue).getString();</span>
+<span class="fc" id="L229">                        dep.addEvidence(t, PACKAGE_JSON,</span>
+<span class="fc" id="L230">                                String.format(&quot;%s.%s&quot;, key, property),</span>
                                 evidenceStr,
                                 Confidence.HIGHEST);
                     } else {
 <span class="nc" id="L234">                        LOGGER.warn(&quot;JSON sub-value not string as expected: {}&quot;, subValue);</span>
                     }
-<span class="nc" id="L236">                }</span>
-<span class="nc" id="L237">            } else {</span>
+<span class="fc" id="L236">                }</span>
+<span class="fc" id="L237">            } else {</span>
 <span class="nc" id="L238">                LOGGER.warn(&quot;JSON value not string or JSON object as expected: {}&quot;, value);</span>
             }
         }
-<span class="nc" id="L241">        return evidenceStr;</span>
+<span class="fc" id="L241">        return evidenceStr;</span>
     }
 
     /**
@@ -251,15 +251,15 @@ import org.owasp.dependencycheck.utils.Checksum;
      * @return the identified dependency; otherwise null
      */
     protected Dependency findDependency(Engine engine, String name, String version) {
-<span class="nc bnc" id="L254" title="All 2 branches missed.">        for (Dependency d : engine.getDependencies()) {</span>
-<span class="nc bnc" id="L255" title="All 8 branches missed.">            if (NPM_DEPENDENCY_ECOSYSTEM.equals(d.getEcosystem()) &amp;&amp; name.equals(d.getName()) &amp;&amp; version != null &amp;&amp; d.getVersion() != null) {</span>
-<span class="nc" id="L256">                final String dependencyVersion = d.getVersion();</span>
-<span class="nc bnc" id="L257" title="All 2 branches missed.">                if (DependencyBundlingAnalyzer.npmVersionsMatch(version, dependencyVersion)) {</span>
-<span class="nc" id="L258">                    return d;</span>
+<span class="fc bfc" id="L254" title="All 2 branches covered.">        for (Dependency d : engine.getDependencies()) {</span>
+<span class="pc bpc" id="L255" title="1 of 8 branches missed.">            if (NPM_DEPENDENCY_ECOSYSTEM.equals(d.getEcosystem()) &amp;&amp; name.equals(d.getName()) &amp;&amp; version != null &amp;&amp; d.getVersion() != null) {</span>
+<span class="fc" id="L256">                final String dependencyVersion = d.getVersion();</span>
+<span class="fc bfc" id="L257" title="All 2 branches covered.">                if (DependencyBundlingAnalyzer.npmVersionsMatch(version, dependencyVersion)) {</span>
+<span class="fc" id="L258">                    return d;</span>
                 }
             }
         }
-<span class="nc" id="L262">        return null;</span>
+<span class="fc" id="L262">        return null;</span>
     }
 
     /**
@@ -269,43 +269,43 @@ import org.owasp.dependencycheck.utils.Checksum;
      * @param dependency the dependency to add the evidence too
      */
     public void gatherEvidence(final JsonObject json, Dependency dependency) {
-<span class="nc" id="L272">        String displayName = null;</span>
-<span class="nc bnc" id="L273" title="All 2 branches missed.">        if (json.containsKey(&quot;name&quot;)) {</span>
-<span class="nc" id="L274">            final Object value = json.get(&quot;name&quot;);</span>
-<span class="nc bnc" id="L275" title="All 2 branches missed.">            if (value instanceof JsonString) {</span>
-<span class="nc" id="L276">                final String valueString = ((JsonString) value).getString();</span>
-<span class="nc" id="L277">                displayName = valueString;</span>
-<span class="nc" id="L278">                dependency.setName(valueString);</span>
-<span class="nc" id="L279">                dependency.setPackagePath(valueString);</span>
-<span class="nc" id="L280">                dependency.addEvidence(EvidenceType.PRODUCT, PACKAGE_JSON, &quot;name&quot;, valueString, Confidence.HIGHEST);</span>
-<span class="nc" id="L281">                dependency.addEvidence(EvidenceType.VENDOR, PACKAGE_JSON, &quot;name&quot;, valueString, Confidence.HIGH);</span>
-<span class="nc" id="L282">            } else {</span>
+<span class="fc" id="L272">        String displayName = null;</span>
+<span class="pc bpc" id="L273" title="1 of 2 branches missed.">        if (json.containsKey(&quot;name&quot;)) {</span>
+<span class="fc" id="L274">            final Object value = json.get(&quot;name&quot;);</span>
+<span class="pc bpc" id="L275" title="1 of 2 branches missed.">            if (value instanceof JsonString) {</span>
+<span class="fc" id="L276">                final String valueString = ((JsonString) value).getString();</span>
+<span class="fc" id="L277">                displayName = valueString;</span>
+<span class="fc" id="L278">                dependency.setName(valueString);</span>
+<span class="fc" id="L279">                dependency.setPackagePath(valueString);</span>
+<span class="fc" id="L280">                dependency.addEvidence(EvidenceType.PRODUCT, PACKAGE_JSON, &quot;name&quot;, valueString, Confidence.HIGHEST);</span>
+<span class="fc" id="L281">                dependency.addEvidence(EvidenceType.VENDOR, PACKAGE_JSON, &quot;name&quot;, valueString, Confidence.HIGH);</span>
+<span class="fc" id="L282">            } else {</span>
 <span class="nc" id="L283">                LOGGER.warn(&quot;JSON value not string as expected: {}&quot;, value);</span>
             }
         }
         //TODO - if we start doing CPE analysis on node - we need to exclude description as it creates too many FP
-<span class="nc" id="L287">        final String desc = addToEvidence(dependency, EvidenceType.PRODUCT, json, &quot;description&quot;);</span>
-<span class="nc" id="L288">        dependency.setDescription(desc);</span>
-<span class="nc" id="L289">        final String vendor = addToEvidence(dependency, EvidenceType.VENDOR, json, &quot;author&quot;);</span>
-<span class="nc" id="L290">        final String version = addToEvidence(dependency, EvidenceType.VERSION, json, &quot;version&quot;);</span>
-<span class="nc bnc" id="L291" title="All 2 branches missed.">        if (version != null) {</span>
-<span class="nc" id="L292">            displayName = String.format(&quot;%s:%s&quot;, displayName, version);</span>
-<span class="nc" id="L293">            dependency.setVersion(version);</span>
+<span class="fc" id="L287">        final String desc = addToEvidence(dependency, EvidenceType.PRODUCT, json, &quot;description&quot;);</span>
+<span class="fc" id="L288">        dependency.setDescription(desc);</span>
+<span class="fc" id="L289">        final String vendor = addToEvidence(dependency, EvidenceType.VENDOR, json, &quot;author&quot;);</span>
+<span class="fc" id="L290">        final String version = addToEvidence(dependency, EvidenceType.VERSION, json, &quot;version&quot;);</span>
+<span class="pc bpc" id="L291" title="1 of 2 branches missed.">        if (version != null) {</span>
+<span class="fc" id="L292">            displayName = String.format(&quot;%s:%s&quot;, displayName, version);</span>
+<span class="fc" id="L293">            dependency.setVersion(version);</span>
 
             Identifier id;
             try {
-<span class="nc" id="L297">                final PackageURL purl = PackageURLBuilder.aPackageURL()</span>
-<span class="nc" id="L298">                        .withType(StandardTypes.NPM).withName(dependency.getName()).withVersion(version).build();</span>
-<span class="nc" id="L299">                id = new PurlIdentifier(purl, Confidence.HIGHEST);</span>
+<span class="fc" id="L297">                final PackageURL purl = PackageURLBuilder.aPackageURL()</span>
+<span class="fc" id="L298">                        .withType(StandardTypes.NPM).withName(dependency.getName()).withVersion(version).build();</span>
+<span class="fc" id="L299">                id = new PurlIdentifier(purl, Confidence.HIGHEST);</span>
 <span class="nc" id="L300">            } catch (MalformedPackageURLException ex) {</span>
 <span class="nc" id="L301">                LOGGER.debug(&quot;Unable to generate Purl - using a generic identifier instead &quot; + ex.getMessage());</span>
 <span class="nc" id="L302">                id = new GenericIdentifier(String.format(&quot;npm:%s:%s&quot;, dependency.getName(), version), Confidence.HIGHEST);</span>
-<span class="nc" id="L303">            }</span>
-<span class="nc" id="L304">            dependency.addSoftwareIdentifier(id);</span>
+<span class="fc" id="L303">            }</span>
+<span class="fc" id="L304">            dependency.addSoftwareIdentifier(id);</span>
         }
-<span class="nc bnc" id="L306" title="All 2 branches missed.">        if (displayName != null) {</span>
-<span class="nc" id="L307">            dependency.setDisplayFileName(displayName);</span>
-<span class="nc" id="L308">            dependency.setPackagePath(displayName);</span>
+<span class="pc bpc" id="L306" title="1 of 2 branches missed.">        if (displayName != null) {</span>
+<span class="fc" id="L307">            dependency.setDisplayFileName(displayName);</span>
+<span class="fc" id="L308">            dependency.setPackagePath(displayName);</span>
         } else {
 <span class="nc" id="L310">            LOGGER.warn(&quot;Unable to determine package name or version for {}&quot;, dependency.getActualFilePath());</span>
 <span class="nc bnc" id="L311" title="All 4 branches missed.">            if (vendor != null &amp;&amp; !vendor.isEmpty()) {</span>
@@ -313,23 +313,23 @@ import org.owasp.dependencycheck.utils.Checksum;
             }
         }
         // Adds the license if defined in package.json
-<span class="nc bnc" id="L316" title="All 2 branches missed.">        if (json.containsKey(&quot;license&quot;)) {</span>
-<span class="nc" id="L317">            final Object value = json.get(&quot;license&quot;);</span>
-<span class="nc bnc" id="L318" title="All 2 branches missed.">            if (value instanceof JsonString) {</span>
-<span class="nc" id="L319">                dependency.setLicense(json.getString(&quot;license&quot;));</span>
-<span class="nc bnc" id="L320" title="All 2 branches missed.">            } else if (value instanceof JsonArray) {</span>
-<span class="nc" id="L321">                final JsonArray array = (JsonArray) value;</span>
-<span class="nc" id="L322">                final StringBuilder sb = new StringBuilder();</span>
-<span class="nc" id="L323">                boolean addComma = false;</span>
-<span class="nc bnc" id="L324" title="All 2 branches missed.">                for (int x = 0; x &lt; array.size(); x++) {</span>
-<span class="nc bnc" id="L325" title="All 2 branches missed.">                    if (!array.isNull(x)) {</span>
-<span class="nc bnc" id="L326" title="All 2 branches missed.">                        if (addComma) {</span>
-<span class="nc" id="L327">                            sb.append(&quot;, &quot;);</span>
+<span class="pc bpc" id="L316" title="1 of 2 branches missed.">        if (json.containsKey(&quot;license&quot;)) {</span>
+<span class="fc" id="L317">            final Object value = json.get(&quot;license&quot;);</span>
+<span class="fc bfc" id="L318" title="All 2 branches covered.">            if (value instanceof JsonString) {</span>
+<span class="fc" id="L319">                dependency.setLicense(json.getString(&quot;license&quot;));</span>
+<span class="fc bfc" id="L320" title="All 2 branches covered.">            } else if (value instanceof JsonArray) {</span>
+<span class="fc" id="L321">                final JsonArray array = (JsonArray) value;</span>
+<span class="fc" id="L322">                final StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L323">                boolean addComma = false;</span>
+<span class="fc bfc" id="L324" title="All 2 branches covered.">                for (int x = 0; x &lt; array.size(); x++) {</span>
+<span class="pc bpc" id="L325" title="1 of 2 branches missed.">                    if (!array.isNull(x)) {</span>
+<span class="fc bfc" id="L326" title="All 2 branches covered.">                        if (addComma) {</span>
+<span class="fc" id="L327">                            sb.append(&quot;, &quot;);</span>
                         } else {
-<span class="nc" id="L329">                            addComma = true;</span>
+<span class="fc" id="L329">                            addComma = true;</span>
                         }
-<span class="nc bnc" id="L331" title="All 2 branches missed.">                        if (ValueType.STRING == array.get(x).getValueType()) {</span>
-<span class="nc" id="L332">                            sb.append(array.getString(x));</span>
+<span class="pc bpc" id="L331" title="1 of 2 branches missed.">                        if (ValueType.STRING == array.get(x).getValueType()) {</span>
+<span class="fc" id="L332">                            sb.append(array.getString(x));</span>
                         } else {
 <span class="nc" id="L334">                            final JsonObject lo = array.getJsonObject(x);</span>
 <span class="nc bnc" id="L335" title="All 4 branches missed.">                            if (lo.containsKey(&quot;type&quot;) &amp;&amp; !lo.isNull(&quot;type&quot;)</span>
@@ -344,11 +344,11 @@ import org.owasp.dependencycheck.utils.Checksum;
                         }
                     }
                 }
-<span class="nc" id="L347">                dependency.setLicense(sb.toString());</span>
-<span class="nc" id="L348">            } else {</span>
-<span class="nc" id="L349">                dependency.setLicense(json.getJsonObject(&quot;license&quot;).getString(&quot;type&quot;));</span>
+<span class="fc" id="L347">                dependency.setLicense(sb.toString());</span>
+<span class="fc" id="L348">            } else {</span>
+<span class="fc" id="L349">                dependency.setLicense(json.getJsonObject(&quot;license&quot;).getString(&quot;type&quot;));</span>
             }
         }
-<span class="nc" id="L352">    }</span>
+<span class="fc" id="L352">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

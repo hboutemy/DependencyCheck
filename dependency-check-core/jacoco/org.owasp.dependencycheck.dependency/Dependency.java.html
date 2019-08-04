@@ -198,7 +198,7 @@ public class Dependency extends EvidenceCollection implements Serializable {
 <span class="fc" id="L198">        this.filePath = this.actualFilePath;</span>
 <span class="fc" id="L199">        this.fileName = file.getName();</span>
 <span class="fc" id="L200">        this.packagePath = filePath;</span>
-<span class="pc bpc" id="L201" title="1 of 4 branches missed.">        if (!isVirtual &amp;&amp; file.isFile()) {</span>
+<span class="fc bfc" id="L201" title="All 4 branches covered.">        if (!isVirtual &amp;&amp; file.isFile()) {</span>
 <span class="fc" id="L202">            calculateChecksums(file);</span>
         }
 <span class="fc" id="L204">    }</span>

@@ -116,13 +116,13 @@ public class DataCacheFactory {
      * @return a references to the data cache for Node Audit
      */
     public DataCache&lt;List&lt;Advisory&gt;&gt; getNodeAuditCache() {
-<span class="nc" id="L119">        final ICompositeCacheAttributes attr = new CompositeCacheAttributes();</span>
-<span class="nc" id="L120">        attr.setUseDisk(true);</span>
-<span class="nc" id="L121">        attr.setUseLateral(false);</span>
-<span class="nc" id="L122">        attr.setUseRemote(false);</span>
-<span class="nc" id="L123">        final CacheAccess&lt;String, List&lt;Advisory&gt;&gt; ca = JCS.getInstance(&quot;NODEAUDIT&quot;, attr);</span>
-<span class="nc" id="L124">        final DataCache&lt;List&lt;Advisory&gt;&gt; dc = new DataCache&lt;&gt;(ca);</span>
-<span class="nc" id="L125">        return dc;</span>
+<span class="fc" id="L119">        final ICompositeCacheAttributes attr = new CompositeCacheAttributes();</span>
+<span class="fc" id="L120">        attr.setUseDisk(true);</span>
+<span class="fc" id="L121">        attr.setUseLateral(false);</span>
+<span class="fc" id="L122">        attr.setUseRemote(false);</span>
+<span class="fc" id="L123">        final CacheAccess&lt;String, List&lt;Advisory&gt;&gt; ca = JCS.getInstance(&quot;NODEAUDIT&quot;, attr);</span>
+<span class="fc" id="L124">        final DataCache&lt;List&lt;Advisory&gt;&gt; dc = new DataCache&lt;&gt;(ca);</span>
+<span class="fc" id="L125">        return dc;</span>
 
     }
 

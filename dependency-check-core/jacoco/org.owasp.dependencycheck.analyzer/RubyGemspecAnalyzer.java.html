@@ -171,7 +171,7 @@ import org.slf4j.LoggerFactory;
                     &quot;homepage&quot;, &quot;homepage&quot;, Confidence.HIGHEST);
 <span class="fc" id="L172">            final String license = addStringEvidence(dependency, EvidenceType.VENDOR, contents, blockVariable,</span>
                     &quot;license&quot;, &quot;licen[cs]es?&quot;, Confidence.HIGHEST);
-<span class="pc bpc" id="L174" title="1 of 4 branches missed.">            if (license != null &amp;&amp; !license.isEmpty()) {</span>
+<span class="pc bpc" id="L174" title="2 of 4 branches missed.">            if (license != null &amp;&amp; !license.isEmpty()) {</span>
 <span class="fc" id="L175">                dependency.setLicense(license);</span>
             }
 <span class="fc" id="L177">            final String value = addStringEvidence(dependency, EvidenceType.VERSION, contents,</span>
@@ -235,11 +235,11 @@ import org.slf4j.LoggerFactory;
 <span class="fc" id="L235">        } else { //capture single value between quotes</span>
 <span class="fc" id="L236">            final Matcher matcher = Pattern.compile(</span>
 <span class="fc" id="L237">                    String.format(&quot;\\s*?%s\\.%s\\s*?=\\s*?(['\&quot;])(.*?)\\1&quot;, blockVariable, fieldPattern), Pattern.CASE_INSENSITIVE).matcher(contents);</span>
-<span class="fc bfc" id="L238" title="All 2 branches covered.">            if (matcher.find()) {</span>
+<span class="pc bpc" id="L238" title="1 of 2 branches missed.">            if (matcher.find()) {</span>
 <span class="fc" id="L239">                value = matcher.group(2);</span>
             }
         }
-<span class="fc bfc" id="L242" title="All 2 branches covered.">        if (value.length() &gt; 0) {</span>
+<span class="pc bpc" id="L242" title="1 of 2 branches missed.">        if (value.length() &gt; 0) {</span>
 <span class="fc" id="L243">            dependency.addEvidence(type, GEMSPEC, field, value, confidence);</span>
         }
 

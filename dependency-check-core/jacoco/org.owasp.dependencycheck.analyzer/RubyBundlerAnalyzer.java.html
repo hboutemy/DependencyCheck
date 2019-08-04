@@ -114,7 +114,7 @@ import org.owasp.dependencycheck.dependency.Dependency;
 <span class="pc bpc" id="L114" title="3 of 6 branches missed.">        if (specificationsDir != null &amp;&amp; specificationsDir.getName().equals(SPECIFICATIONS) &amp;&amp; specificationsDir.exists()) {</span>
 <span class="fc" id="L115">            final File parentDir = specificationsDir.getParentFile();</span>
 <span class="fc" id="L116">            final File gemsDir = new File(parentDir, GEMS);</span>
-<span class="pc bpc" id="L117" title="2 of 6 branches missed.">            if (parentDir != null &amp;&amp; parentDir.exists() &amp;&amp; gemsDir.exists()) {</span>
+<span class="pc bpc" id="L117" title="3 of 6 branches missed.">            if (parentDir != null &amp;&amp; parentDir.exists() &amp;&amp; gemsDir.exists()) {</span>
 <span class="fc" id="L118">                final File[] matchingFiles = gemsDir.listFiles(new FilenameFilter() {</span>
                     @Override
                     public boolean accept(File dir, String name) {

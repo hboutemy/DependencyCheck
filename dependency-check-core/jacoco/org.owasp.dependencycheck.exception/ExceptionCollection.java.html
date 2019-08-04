@@ -56,9 +56,9 @@ public class ExceptionCollection extends Exception {
      * @param exceptions a list of exceptions
      */
     public ExceptionCollection(List&lt;Throwable&gt; exceptions) {
-<span class="fc" id="L59">        super(MSG);</span>
-<span class="fc" id="L60">        this.exceptions = exceptions;</span>
-<span class="fc" id="L61">    }</span>
+<span class="nc" id="L59">        super(MSG);</span>
+<span class="nc" id="L60">        this.exceptions = exceptions;</span>
+<span class="nc" id="L61">    }</span>
 
     /**
      * Instantiates a new exception collection.
@@ -207,10 +207,10 @@ public class ExceptionCollection extends Exception {
      */
     @Override
     public String getMessage() {
-<span class="fc" id="L210">        final StringBuilder sb = new StringBuilder(MSG);</span>
+<span class="nc" id="L210">        final StringBuilder sb = new StringBuilder(MSG);</span>
 
-<span class="fc" id="L212">        this.exceptions.forEach((t) -&gt; sb.append(&quot;\n\t&quot;).append(t.getMessage()));</span>
-<span class="fc" id="L213">        return sb.toString();</span>
+<span class="nc" id="L212">        this.exceptions.forEach((t) -&gt; sb.append(&quot;\n\t&quot;).append(t.getMessage()));</span>
+<span class="nc" id="L213">        return sb.toString();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

@@ -63,7 +63,10 @@ import org.owasp.dependencycheck.data.cwe.CweDB;
 
     @Override
     public String toString() {
-<span class="fc" id="L66">        return cwes.stream().map(cwe -&gt; CweDB.getFullName(cwe)).collect(Collectors.joining(&quot;, &quot;));</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        if (cwes.isEmpty()) {</span>
+<span class="fc" id="L67">            return null;</span>
+        }
+<span class="fc" id="L69">        return cwes.stream().map(cwe -&gt; CweDB.getFullName(cwe)).collect(Collectors.joining(&quot;, &quot;));</span>
     }
 
     /**
@@ -72,7 +75,7 @@ import org.owasp.dependencycheck.data.cwe.CweDB;
      * @return the stream of CWE
      */
     public Stream&lt;String&gt; stream() {
-<span class="fc" id="L75">        return cwes.stream();</span>
+<span class="fc" id="L78">        return cwes.stream();</span>
     }
 
     /**
@@ -81,11 +84,11 @@ import org.owasp.dependencycheck.data.cwe.CweDB;
      * @return a map of CWE-ID and title.
      */
     public Map&lt;String, String&gt; getFullCwes() {
-<span class="fc" id="L84">        final Map&lt;String, String&gt; map = new HashMap&lt;&gt;();</span>
-<span class="fc" id="L85">        cwes.forEach((cwe) -&gt; {</span>
-<span class="fc" id="L86">            map.put(cwe, CweDB.getName(cwe));</span>
-<span class="fc" id="L87">        });</span>
-<span class="fc" id="L88">        return map;</span>
+<span class="fc" id="L87">        final Map&lt;String, String&gt; map = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L88">        cwes.forEach((cwe) -&gt; {</span>
+<span class="fc" id="L89">            map.put(cwe, CweDB.getName(cwe));</span>
+<span class="fc" id="L90">        });</span>
+<span class="fc" id="L91">        return map;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

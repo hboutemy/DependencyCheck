@@ -219,8 +219,8 @@ public final class CveDB implements AutoCloseable {
      * @return the ecosystem if one is identified
      */
     private String determineEcosystem(String baseEcosystem, String vendor, String product, String targetSw) {
-<span class="fc bfc" id="L222" title="All 4 branches covered.">        if (&quot;ibm&quot;.equals(vendor) &amp;&amp; &quot;java&quot;.equals(product)) {</span>
-<span class="fc" id="L223">            return &quot;c/c++&quot;;</span>
+<span class="pc bpc" id="L222" title="1 of 4 branches missed.">        if (&quot;ibm&quot;.equals(vendor) &amp;&amp; &quot;java&quot;.equals(product)) {</span>
+<span class="nc" id="L223">            return &quot;c/c++&quot;;</span>
         }
 <span class="pc bpc" id="L225" title="1 of 4 branches missed.">        if (&quot;oracle&quot;.equals(vendor) &amp;&amp; &quot;vm&quot;.equals(product)) {</span>
 <span class="nc" id="L226">            return &quot;c/c++&quot;;</span>

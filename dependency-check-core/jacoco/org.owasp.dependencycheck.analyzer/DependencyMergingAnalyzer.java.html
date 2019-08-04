@@ -92,9 +92,9 @@ import org.slf4j.LoggerFactory;
     protected boolean evaluateDependencies(final Dependency dependency, final Dependency nextDependency, final Set&lt;Dependency&gt; dependenciesToRemove) {
         Dependency main;
         //CSOFF: InnerAssignment
-<span class="fc bfc" id="L95" title="All 2 branches covered.">        if ((main = getMainGemspecDependency(dependency, nextDependency)) != null) {</span>
-<span class="pc bpc" id="L96" title="1 of 2 branches missed.">            if (main == dependency) {</span>
-<span class="fc" id="L97">                mergeDependencies(dependency, nextDependency, dependenciesToRemove);</span>
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">        if ((main = getMainGemspecDependency(dependency, nextDependency)) != null) {</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">            if (main == dependency) {</span>
+<span class="nc" id="L97">                mergeDependencies(dependency, nextDependency, dependenciesToRemove);</span>
             } else {
 <span class="nc" id="L99">                mergeDependencies(nextDependency, dependency, dependenciesToRemove);</span>
 <span class="nc" id="L100">                return true; //since we merged into the next dependency - skip forward to the next in mainIterator</span>
@@ -113,9 +113,9 @@ import org.slf4j.LoggerFactory;
 <span class="nc" id="L113">                mergeDependencies(nextDependency, dependency, dependenciesToRemove);</span>
 <span class="nc" id="L114">                return true; //since we merged into the next dependency - skip forward to the next in mainIterator</span>
             }
-<span class="pc bpc" id="L116" title="1 of 2 branches missed.">        } else if ((main = getMainDotnetDependency(dependency, nextDependency)) != null) {</span>
-<span class="nc bnc" id="L117" title="All 2 branches missed.">            if (main == dependency) {</span>
-<span class="nc" id="L118">                mergeDependencies(dependency, nextDependency, dependenciesToRemove);</span>
+<span class="fc bfc" id="L116" title="All 2 branches covered.">        } else if ((main = getMainDotnetDependency(dependency, nextDependency)) != null) {</span>
+<span class="pc bpc" id="L117" title="1 of 2 branches missed.">            if (main == dependency) {</span>
+<span class="fc" id="L118">                mergeDependencies(dependency, nextDependency, dependenciesToRemove);</span>
             } else {
 <span class="nc" id="L120">                mergeDependencies(nextDependency, dependency, dependenciesToRemove);</span>
 <span class="nc" id="L121">                return true; //since we merged into the next dependency - skip forward to the next in mainIterator</span>
@@ -280,13 +280,13 @@ import org.slf4j.LoggerFactory;
 <span class="fc bfc" id="L280" title="All 4 branches covered.">                &amp;&amp; dependency2.getName() != null &amp;&amp; dependency2.getVersion() != null</span>
 <span class="fc bfc" id="L281" title="All 2 branches covered.">                &amp;&amp; (AssemblyAnalyzer.DEPENDENCY_ECOSYSTEM.equals(dependency1.getEcosystem())</span>
 <span class="fc bfc" id="L282" title="All 2 branches covered.">                || NugetconfAnalyzer.DEPENDENCY_ECOSYSTEM.equals(dependency1.getEcosystem()))</span>
-<span class="pc bpc" id="L283" title="1 of 2 branches missed.">                &amp;&amp; (AssemblyAnalyzer.DEPENDENCY_ECOSYSTEM.equals(dependency2.getEcosystem())</span>
+<span class="fc bfc" id="L283" title="All 2 branches covered.">                &amp;&amp; (AssemblyAnalyzer.DEPENDENCY_ECOSYSTEM.equals(dependency2.getEcosystem())</span>
 <span class="fc bfc" id="L284" title="All 2 branches covered.">                || NugetconfAnalyzer.DEPENDENCY_ECOSYSTEM.equals(dependency2.getEcosystem()))) {</span>
-<span class="pc bpc" id="L285" title="1 of 4 branches missed.">            if (dependency1.getName().equals(dependency2.getName()) &amp;&amp; dependency1.getVersion().equals(dependency2.getVersion())) {</span>
-<span class="pc bpc" id="L286" title="1 of 2 branches missed.">                if (dependency2.isVirtual()) {</span>
+<span class="fc bfc" id="L285" title="All 4 branches covered.">            if (dependency1.getName().equals(dependency2.getName()) &amp;&amp; dependency1.getVersion().equals(dependency2.getVersion())) {</span>
+<span class="fc bfc" id="L286" title="All 2 branches covered.">                if (dependency2.isVirtual()) {</span>
 <span class="fc" id="L287">                    return dependency2;</span>
                 }
-<span class="nc" id="L289">                return dependency1;</span>
+<span class="fc" id="L289">                return dependency1;</span>
             }
         }
 <span class="fc" id="L292">        return null;</span>

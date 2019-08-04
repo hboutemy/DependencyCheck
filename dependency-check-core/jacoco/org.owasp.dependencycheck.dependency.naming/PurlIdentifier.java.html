@@ -94,11 +94,11 @@ public class PurlIdentifier implements Identifier {
      * @throws MalformedPackageURLException thrown if the type, name space,
      * name, and version cannot be converted into a package-URL
      */
-<span class="nc" id="L97">    public PurlIdentifier(String type, String name, String version, Confidence confidence) throws MalformedPackageURLException {</span>
-<span class="nc" id="L98">        this.purl = PackageURLBuilder.aPackageURL().withType(type).withName(name)</span>
-<span class="nc" id="L99">                .withVersion(version).build();</span>
-<span class="nc" id="L100">        this.confidence = confidence;</span>
-<span class="nc" id="L101">    }</span>
+<span class="fc" id="L97">    public PurlIdentifier(String type, String name, String version, Confidence confidence) throws MalformedPackageURLException {</span>
+<span class="fc" id="L98">        this.purl = PackageURLBuilder.aPackageURL().withType(type).withName(name)</span>
+<span class="fc" id="L99">                .withVersion(version).build();</span>
+<span class="fc" id="L100">        this.confidence = confidence;</span>
+<span class="fc" id="L101">    }</span>
 
     /**
      * Constructs a new Package-URL identifier.
